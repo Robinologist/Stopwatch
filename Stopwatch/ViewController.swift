@@ -14,6 +14,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     
 //-----------------------------------------------------------------------------------------------------------
+        //hide reset button
+        ResetOutlet.isHidden = true
         
         //setup TimerUpdate function to trigger every 1/100th of a sec
         let timer = Timer.scheduledTimer(timeInterval: 0.01,target: self,selector: #selector(TimerUpdate),userInfo: nil,repeats: true)
@@ -90,8 +92,9 @@ class ViewController: UIViewController {
     @IBOutlet var AppFace: UIImageView!
     
     @IBOutlet var ButtonOutlet: UIButton!
+    @IBOutlet var ResetOutlet: UIButton!
     
-//-----------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
     
     //when button is tapped
     @IBAction func ButtonAction(_ sender: Any) {
@@ -103,12 +106,30 @@ class ViewController: UIViewController {
         //if buttonstate is 0 change button label to "Stop" and buttonstate to 1
         if buttonstate == 0 {
             ButtonOutlet.setTitle("Stop", for: .normal)
+            ResetOutlet.isHidden = true
             buttonstate = 1
         }
         //if buttonstate is 1 change button label to "Start" and buttonstate to 0
         else{
             ButtonOutlet.setTitle("Start", for: .normal)
+            ResetOutlet.isHidden = false
             buttonstate = 0
         }
+    }
+    
+    
+    @IBAction func ResetAction(_ sender: Any) {
+        //reset time
+        ticks = 0
+        seconds = 0
+        minutes = 0
+        hours = 0
+        time = "00:00"
+        
+        //update label
+        LabelOutlet.text = time
+        
+        //hide reset button
+        ResetOutlet.isHidden = true
     }
 }
